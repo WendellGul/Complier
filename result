@@ -1,111 +1,56 @@
-program
-|__subprogram
-   |__subprogram_part1
-      |__const_declare
-         |__RESERVED: CONST
-         |__const_declare
-            |__ID: a
-            |__OPER: '='
-            |__INT: 10
-         |__OPER: ';'
-   |__subprogram_part2
-      |__var_declare
-         |__RESERVED: VAR
-         |__ID: b
-         |__var_declare_part1
-            |__OPER: ','
-            |__ID: c
-         |__OPER: ';'
-   |__subprogram_part3
-      |__procedure_declare
-         |__procedure_header
-            |__RESERVED: PROCEDURE
-            |__ID: p
-            |__OPER: ';'
-         |__subprogram
-            |__statement
-               |__complex
-                  |__RESERVED: BEGIN
-                  |__statement
-                     |__assign
-                        |__ID: c
-                        |__RESERVED: ASSIGN
-                        |__expression
-                           |__item
-                              |__factor
-                                 |__INT: 1
-                           |__expression_part1
-                              |__OPER: '+'
-                              |__item
-                                 |__factor
-                                    |__INT: 2
-                              |__expression_part1
-                                 |__OPER: '+'
-                                 |__item
-                                    |__factor
-                                       |__INT: 3
-                                 |__expression_part1
-                                    |__OPER: '+'
-                                    |__item
-                                       |__factor
-                                          |__INT: 4
-                  |__RESERVED: END
-         |__OPER: ';'
-   |__statement
-      |__complex
-         |__RESERVED: BEGIN
-         |__statement
-            |__read
-               |__RESERVED: READ
-               |__OPER: '('
-               |__ID: b
-               |__OPER: ')'
-         |__complex_part1
-            |__OPER: ';'
-            |__statement
-               |__loop
-                  |__RESERVED: WHILE
-                  |__condition
-                     |__expression
-                        |__item
-                           |__factor
-                              |__ID: b
-                     |__OPER: '#'
-                     |__expression
-                        |__item
-                           |__factor
-                              |__INT: 0
-                  |__RESERVED: DO
-                  |__statement
-                     |__complex
-                        |__RESERVED: BEGIN
-                        |__statement
-                           |__call
-                              |__RESERVED: CALL
-                              |__ID: p
-                        |__complex_part1
-                           |__OPER: ';'
-                           |__statement
-                              |__write
-                                 |__RESERVED: WRITE
-                                 |__OPER: '('
-                                 |__expression
-                                    |__item
-                                       |__factor
-                                          |__INT: 2
-                                       |__item_part1
-                                          |__OPER: '*'
-                                          |__factor
-                                             |__ID: c
-                                 |__OPER: ')'
-                           |__complex_part1
-                              |__OPER: ';'
-                              |__statement
-                                 |__read
-                                    |__RESERVED: READ
-                                    |__OPER: '('
-                                    |__ID: b
-                                    |__OPER: ')'
-                        |__RESERVED: END
-         |__RESERVED: END
-|__OPER: '.'
+258 const     
+273 a         
+61  =         
+272 10        
+59  ;         
+259 var       
+273 b         
+44  ,         
+273 c         
+59  ;         
+ERR @         
+ERR !         
+260 procedure 
+273 p         
+59  ;         
+261 begin     
+273 c         
+271 :=        
+272 1         
+43  +         
+272 2         
+43  +         
+272 3         
+43  +         
+272 4         
+262 end       
+59  ;         
+261 begin     
+269 read      
+40  (         
+273 b         
+41  )         
+59  ;         
+267 while     
+273 b         
+35  #         
+272 0         
+268 do        
+261 begin     
+266 call      
+273 p         
+59  ;         
+270 write     
+40  (         
+272 2         
+42  *         
+273 c         
+41  )         
+59  ;         
+269 read      
+40  (         
+273 b         
+41  )         
+262 end       
+262 end       
+46  .         

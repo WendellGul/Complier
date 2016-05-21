@@ -6,14 +6,15 @@
     #include "parser.tab.h"
     int yylex();
     int yywrap();
+    void yyerror(char *s);
 %}
 
 %option yylineno
 %start COMMENT1 COMMENT2
 
 %%
-"/*" { BEGIN COMMENT1; }
-<COMMENT1>"*/" { BEGIN 0; }
+"(*" { BEGIN COMMENT1; }
+<COMMENT1>"*)" { BEGIN 0; }
 <COMMENT1>[^*/]+ { /* do nothing */ }
 
 "{" { BEGIN COMMENT2; }
@@ -92,7 +93,10 @@ int main(int argc, char **argv)
     int re;
     while(re = yylex())
     {
-        fprintf(result, "%-4d%-10s\n", re, yytext);
+        if(re == ERROR)
+            fprintf(result, "ERR %-10s\n", yytext);
+        else
+            fprintf(result, "%-4d%-10s\n", re, yytext);
     }
     return 0;
 }
