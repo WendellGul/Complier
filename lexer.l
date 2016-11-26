@@ -2,53 +2,58 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-    #include "complier.h"
+    #include "compiler.h"
     #include "parser.tab.h"
-    int yylex();
-    int yywrap();
-    void yyerror(char *s);
+    int yycolumn = 1;
+    #define YY_USER_ACTION \
+        yylloc.first_line = yylloc.last_line = yylineno; \
+        yylloc.first_column = yycolumn; \
+        yylloc.last_column = yycolumn + yyleng - 1; \
+        yycolumn += yyleng;
 %}
 
 %option yylineno
-%start COMMENT1 COMMENT2
+%start COMMENT1
 
 %%
-"(*" { BEGIN COMMENT1; }
-<COMMENT1>"*)" { BEGIN 0; }
+"/*" { BEGIN COMMENT1; }
+<COMMENT1>"*/" { BEGIN 0; }
 <COMMENT1>[^*/]+ { /* do nothing */ }
 
-"{" { BEGIN COMMENT2; }
-<COMMENT2>"}" { BEGIN 0; }
-<COMMENT2>[^\}]+ { /* do nothing */ }
-
-"const" { return CONST; }
-"var" { return VAR; }
-"procedure" { return PROCEDURE; }
-"begin" { return RESERVEDBEGIN; }
-"end" { return END; }
-"odd" { return ODD; }
-"if" { return IF; }
-"then" { return THEN; }
-"call" { return CALL; }
-"while" {return WHILE; }
-"do" { return DO; }
-"read" { return READ; }
-"write" { return WRITE; }
+"int"       { return KW_INT; }
+"float"     { return KW_FLOAT; }
+"char"      { return KW_CHAR; }
+"struct"    { return KW_STRUCT; }
+"return"    { return KW_RETURN; }
+"if"        { return KW_IF; }
+"else"      { return KW_ELSE; }
+"while"     { return KW_WHILE; }
+"continue"  { return KW_CONTINUE; }
+"break"     { return KW_BREAK; }
 
 "+" |
 "-" |
 "*" |
-"/" { return yytext[0]; }
+"/" |
+"%"  { return yytext[0]; }
 
-"<=" { return LEQ; }
-">=" { return GEQ; }
+"||" { return TK_OR;    }
+"&&" { return TK_AND;   }
+"!"  { return yytext[0];}
+
+"<=" { return TK_LEQ; }
+">=" { return TK_GEQ; }
+"==" { return TK_EQ;  }
+"!=" { return TK_NEQ; }
 "<"  { return yytext[0]; }
 ">"  { return yytext[0]; }
-"#"  { return yytext[0]; }
+
 "="  { return yytext[0]; }
 
-":=" { return ASSIGN; }
-
+"[" |
+"]" |
+"{" |
+"}" |
 "(" |
 ")" |
 "," |
@@ -56,18 +61,60 @@
 ";" { return yytext[0]; }
 
 ([0-9])+ { 
-            yylval.value = atoi(yytext);
-            return INTEGER; 
-         }
+    yylval.iValue = atoi(yytext);
+    return TK_CINT; 
+}
+
+([0-9])*[.]([0-9])+ {
+    yylval.fValue = atof(yytext);
+    return TK_CFLOAT;
+}
+
+\'.\' {
+    yylval.cValue = yytext[1];
+    return TK_CCHAR;
+}
+
+"\'\'" {
+    yylval.cValue = '\0';
+    return TK_CCHAR;
+}
+
+"\'\\n\'" {
+    yylval.cValue = '\n';
+    return TK_CCHAR;
+}
+
+"\'\\t\'" {
+    yylval.cValue = '\t';
+    return TK_CCHAR;
+}
+
+\"(.|\\n|\\t)+\" {
+    yylval.sValue = (char *)malloc(sizeof(char) * (yyleng - 1));
+    if(yylval.sValue == NULL)
+        return ERROR;
+    strcpy(yylval.sValue, yytext + 1);
+    (yylval.sValue)[strlen(yylval.sValue) - 1] = '\0';
+    return TK_CSTR;
+}
+
+"\"\"" {
+    yylval.sValue = (char *)malloc(sizeof(char) * 2);
+    if(yylval.sValue == NULL)
+        return ERROR;
+    strcpy(yylval.sValue, "");
+    return TK_CSTR;
+}
 
 [A-Za-z]([A-Za-z0-9])* {
-                          strcpy(yylval.name, yytext);
-                          return ID; 
-                       }
+    strcpy(yylval.name, yytext);
+    return TK_ID; 
+}
 
 [ \n\t]+ { /* do nothing */ }
 
-. { return ERROR; }
+. { printf("Error type A at line %d: Mysterious character \"%s\".", yylineno, yytext); return ERROR; }
 
 %%
 
