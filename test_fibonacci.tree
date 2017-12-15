@@ -1,0 +1,138 @@
+Program
+|__ExtDefList
+   |__ExtDef
+      |__Specifier
+         |__TYPE
+            |__INT: 258 line: 1
+      |__FuncDec
+         |__ID: main line: 1
+         |__LP
+         |__RP
+      |__CompSt
+         |__BEGIN
+         |__DefList
+            |__Define
+               |__Specifier
+                  |__TYPE
+                     |__INT: 258 line: 3
+               |__DecList
+                  |__Declare
+                     |__VarDec
+                        |__ID: a line: 3
+                     |__ASSIGNOP
+                     |__Expression
+                        |__INT: 0 line: 3
+                  |__COMMA
+                  |__DecList
+                     |__Declare
+                        |__VarDec
+                           |__ID: b line: 3
+                        |__ASSIGNOP
+                        |__Expression
+                           |__INT: 1 line: 3
+                     |__COMMA
+                     |__DecList
+                        |__Declare
+                           |__VarDec
+                              |__ID: i line: 3
+                           |__ASSIGNOP
+                           |__Expression
+                              |__INT: 0 line: 3
+                        |__COMMA
+                        |__DecList
+                           |__Declare
+                              |__VarDec
+                                 |__ID: n line: 3
+               |__SEMI
+         |__StmtList
+            |__Statement
+               |__Expression
+                  |__Expression
+                     |__ID: n line: 4
+                  |__ASSIGNOP
+                  |__Expression
+                     |__ID: read line: 4
+                     |__LP
+                     |__RP
+               |__SEMI
+            |__StmtList
+               |__Statement
+                  |__WHILE
+                  |__LP
+                  |__Expression
+                     |__Expression
+                        |__ID: i line: 5
+                     |__RelOp
+                        |__LT
+                     |__Expression
+                        |__ID: n line: 5
+                  |__RP
+                  |__Statement
+                     |__CompSt
+                        |__BEGIN
+                        |__DefList
+                           |__Define
+                              |__Specifier
+                                 |__TYPE
+                                    |__INT: 258 line: 7
+                              |__DecList
+                                 |__Declare
+                                    |__VarDec
+                                       |__ID: c line: 7
+                                    |__ASSIGNOP
+                                    |__Expression
+                                       |__Expression
+                                          |__ID: a line: 7
+                                       |__PLUS
+                                       |__Expression
+                                          |__ID: b line: 7
+                              |__SEMI
+                        |__StmtList
+                           |__Statement
+                              |__Expression
+                                 |__ID: write line: 8
+                                 |__LP
+                                 |__Args
+                                    |__Expression
+                                       |__ID: b line: 8
+                                 |__RP
+                              |__SEMI
+                           |__StmtList
+                              |__Statement
+                                 |__Expression
+                                    |__Expression
+                                       |__ID: a line: 9
+                                    |__ASSIGNOP
+                                    |__Expression
+                                       |__ID: b line: 9
+                                 |__SEMI
+                              |__StmtList
+                                 |__Statement
+                                    |__Expression
+                                       |__Expression
+                                          |__ID: b line: 10
+                                       |__ASSIGNOP
+                                       |__Expression
+                                          |__ID: c line: 10
+                                    |__SEMI
+                                 |__StmtList
+                                    |__Statement
+                                       |__Expression
+                                          |__Expression
+                                             |__ID: i line: 11
+                                          |__ASSIGNOP
+                                          |__Expression
+                                             |__Expression
+                                                |__ID: i line: 11
+                                             |__PLUS
+                                             |__Expression
+                                                |__INT: 1 line: 11
+                                       |__SEMI
+                        |__END
+               |__StmtList
+                  |__Statement
+                     |__RETURN
+                     |__Expression
+                        |__INT: 0 line: 13
+                     |__SEMI
+         |__END
