@@ -79,3 +79,22 @@ $RECYCLE.BIN/
 *.lnk
 
 .vscode/
+
+lex.yy.c
+
+parser.tab.h
+
+parser.tab.h
+
+.output
+
+result
+
+.asm
+
+.ir
+
+.tree
+
+
+

@@ -2,7 +2,15 @@
 
 [TOC]
 
-## 1. 文法定义
+## 1. 用法
+
+使用`make`产生可执行文件*complier.exe*
+
+使用`complier.exe -h` 获取帮助
+
+最终输出语法树，目标代码以及汇编代码
+
+## 2. 文法定义
 
 ### Tokens
 
@@ -211,7 +219,7 @@
 
 --------
 
-## 2. 语义错误类型
+## 3. 语义错误类型
 
 1. Undefined variable;
 2. Undefined function;
